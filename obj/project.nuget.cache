@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "AQUq8BiuTjCDTLd3twlKJHnvq+XzKdNBczB6m/t4A7ckDgBQG1XJNBUBZ35raLiMM/l+os/HABy4M08sUHb16w==",
+  "success": true,
+  "projectFilePath": "/Users/nimrodhuairareyna/Documents/BYU-Idaho/On-Campus/Fall-2022/M-T-W-TH/CSE210/repositories/cycle/Unit05.csproj",
+  "expectedPackageFiles": [
+    "/Users/nimrodhuairareyna/.nuget/packages/raylib-cs/3.7.0.1/raylib-cs.3.7.0.1.nupkg.sha512",
+    "/Users/nimrodhuairareyna/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
