@@ -8,14 +8,14 @@ namespace Cycle.Game.Casting
     /// <para>A long limbless reptile.</para>
     /// <para>The responsibility of Snake is to move itself.</para>
     /// </summary>
-    public class Snake : Actor
+    public class SnakeTwo : Actor
     {
-        private List<Actor> segments = new List<Actor>();
+        private List<Actor> _segments = new List<Actor>();
 
         /// <summary>
         /// Constructs a new instance of a Snake.
         /// </summary>
-        public Snake()
+        public SnakeTwo()
         {
             PrepareBody();
         }
@@ -26,7 +26,7 @@ namespace Cycle.Game.Casting
         /// <returns>The body segments in a List.</returns>
         public List<Actor> GetBody()
         {
-            return new List<Actor>(segments.Skip(1).ToArray());
+            return new List<Actor>(_segments.Skip(1).ToArray());
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Cycle.Game.Casting
         /// <returns>The head segment as an instance of Actor.</returns>
         public Actor GetHead()
         {
-            return segments[0];
+            return _segments[0];
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Cycle.Game.Casting
         /// <returns>A list of snake segments as instances of Actors.</returns>
         public List<Actor> GetSegments()
         {
-            return segments;
+            return _segments;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Cycle.Game.Casting
         {
             for (int i = 0; i < numberOfSegments; i++)
             {
-                Actor tail = segments.Last<Actor>();
+                Actor tail = _segments.Last<Actor>();
                 Point velocity = tail.GetVelocity();
                 Point offset = velocity.Reverse();
                 Point position = tail.GetPosition().Add(offset);
@@ -64,23 +64,23 @@ namespace Cycle.Game.Casting
                 segment.SetPosition(position);
                 segment.SetVelocity(velocity);
                 segment.SetText("#");
-                segment.SetColor(Constants.GREEN);
-                segments.Add(segment);
+                segment.SetColor(Constants.BLUE);
+                _segments.Add(segment);
             }
         }
 
         /// <inheritdoc/>
         public override void MoveNext()
         {
-            foreach (Actor segment in segments)
+            foreach (Actor segment in _segments)
             {
                 segment.MoveNext();
             }
 
-            for (int i = segments.Count - 1; i > 0; i--)
+            for (int i = _segments.Count - 1; i > 0; i--)
             {
-                Actor trailing = segments[i];
-                Actor previous = segments[i - 1];
+                Actor trailing = _segments[i];
+                Actor previous = _segments[i - 1];
                 Point velocity = previous.GetVelocity();
                 trailing.SetVelocity(velocity);
             }
@@ -92,7 +92,7 @@ namespace Cycle.Game.Casting
         /// <param name="velocity">The given direction.</param>
         public void TurnHead(Point direction)
         {
-            segments[0].SetVelocity(direction);
+            _segments[0].SetVelocity(direction);
         }
 
         /// <summary>
@@ -100,23 +100,22 @@ namespace Cycle.Game.Casting
         /// </summary>
         private void PrepareBody()
         {
-            int x = Constants.MAX_X / 4;
-            int y = Constants.MAX_Y / 4;
+            int x = Constants.MAX_X / 2;
+            int y = Constants.MAX_Y / 2;
 
             for (int i = 0; i < Constants.SNAKE_LENGTH; i++)
             {
                 Point position = new Point(x - i * Constants.CELL_SIZE, y);
                 Point velocity = new Point(1 * Constants.CELL_SIZE, 0);
-                // ?: ternary conditional operator ==> is this condition true ? yes : no
-                string text = i == 0 ? "8" : "#"; 
-                Color color = i == 0 ? Constants.YELLOW : Constants.GREEN;
+                string text = i == 0 ? "8" : "#";
+                Color color = i == 0 ? Constants.RED : Constants.BLUE;
 
                 Actor segment = new Actor();
                 segment.SetPosition(position);
                 segment.SetVelocity(velocity);
                 segment.SetText(text);
                 segment.SetColor(color);
-                segments.Add(segment);
+                _segments.Add(segment);
             }
         }
     }

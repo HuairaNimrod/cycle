@@ -9,14 +9,14 @@ namespace Cycle.Game.Casting
     /// The responsibility of Food is to select a random position and points that it's worth.
     /// </para>
     /// </summary>
-    public class Score : Actor
+    public class ScoreTwo : Actor
     {
         private int _points = 0;
 
         /// <summary>
         /// Constructs a new instance of an Food.
         /// </summary>
-        public Score()
+        public ScoreTwo()
         {
             AddPoints(0);
         }
@@ -28,7 +28,7 @@ namespace Cycle.Game.Casting
         public void AddPoints(int points)
         {
             this._points += points;
-            SetText($"Player 1 : {this._points}");
+            SetText($"Player 2 : {this._points}");
         }
     }
 }

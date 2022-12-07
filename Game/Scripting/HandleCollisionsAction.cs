@@ -6,7 +6,8 @@ using Cycle.Game.Services;
 
 
 namespace Cycle.Game.Scripting
-{
+{   
+
     /// <summary>
     /// <para>An update action that handles interactions between the actors.</para>
     /// <para>
@@ -17,6 +18,7 @@ namespace Cycle.Game.Scripting
     public class HandleCollisionsAction : Action
     {
         private bool _isGameOver = false;
+        private int countdown = 0;
 
         /// <summary>
         /// Constructs a new instance of HandleCollisionsAction.
@@ -30,29 +32,31 @@ namespace Cycle.Game.Scripting
         {
             if (_isGameOver == false)
             {
-                HandleFoodCollisions(cast);
                 HandleSegmentCollisions(cast);
+                HandleGrowth(cast);
                 HandleGameOver(cast);
             }
         }
 
+
         /// <summary>
-        /// Updates the score nd moves the food if the snake collides with it.
+        /// Updates the score and size of the snake
         /// </summary>
         /// <param name="cast">The cast of actors.</param>
-        private void HandleFoodCollisions(Cast cast)
+        private void HandleGrowth(Cast cast)
         {
             Snake snake = (Snake)cast.GetFirstActor("snake");
+            SnakeTwo snaketwo = (SnakeTwo)cast.GetFirstActor("snaketwo");
             Score score = (Score)cast.GetFirstActor("score");
-            Food food = (Food)cast.GetFirstActor("food");
-            
-            if (snake.GetHead().GetPosition().Equals(food.GetPosition()))
-            {
-                int points = food.GetPoints();
-                snake.GrowTail(points);
-                score.AddPoints(points);
-                food.Reset();
+            ScoreTwo scoretwo = (ScoreTwo)cast.GetFirstActor("scoretwo");
+            countdown = countdown +1;
+            if (countdown % 30 == 0){
+                snake.GrowTail(1);
+                snaketwo.GrowTail(1);
+                score.AddPoints(1);
+                scoretwo.AddPoints(1);
             }
+
         }
 
         /// <summary>
@@ -80,7 +84,6 @@ namespace Cycle.Game.Scripting
             {
                 Snake snake = (Snake)cast.GetFirstActor("snake");
                 List<Actor> segments = snake.GetSegments();
-                Food food = (Food)cast.GetFirstActor("food");
 
                 // create a "game over" message
                 int x = Constants.MAX_X / 2;
@@ -97,7 +100,7 @@ namespace Cycle.Game.Scripting
                 {
                     segment.SetColor(Constants.WHITE);
                 }
-                food.SetColor(Constants.WHITE);
+
             }
         }
 

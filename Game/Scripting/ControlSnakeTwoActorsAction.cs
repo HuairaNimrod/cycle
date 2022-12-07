@@ -10,7 +10,7 @@ namespace Cycle.Game.Scripting
     /// The responsibility of ControlActorsAction is to get the direction and move the snake's head.
     /// </para>
     /// </summary>
-    public class ControlActorsAction : Action
+    public class ControlSnakeTwoActorsAction : Action
     {
         private KeyboardService _keyboardService;
         private Point _direction = new Point(Constants.CELL_SIZE, 0);
@@ -18,7 +18,7 @@ namespace Cycle.Game.Scripting
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
         /// </summary>
-        public ControlActorsAction(KeyboardService keyboardService)
+        public ControlSnakeTwoActorsAction(KeyboardService keyboardService)
         {
             this._keyboardService = keyboardService;
         }
@@ -27,30 +27,30 @@ namespace Cycle.Game.Scripting
         public void Execute(Cast cast, Script script)
         {
             // left
-            if (_keyboardService.IsKeyDown("a"))
+            if (_keyboardService.IsKeyDown("j"))
             {
                 _direction = new Point(-Constants.CELL_SIZE, 0);
             }
 
             // right
-            if (_keyboardService.IsKeyDown("d"))
+            if (_keyboardService.IsKeyDown("l"))
             {
                 _direction = new Point(Constants.CELL_SIZE, 0);
             }
 
             // up
-            if (_keyboardService.IsKeyDown("w"))
+            if (_keyboardService.IsKeyDown("i"))
             {
                 _direction = new Point(0, -Constants.CELL_SIZE);
             }
 
             // down
-            if (_keyboardService.IsKeyDown("s"))
+            if (_keyboardService.IsKeyDown("k"))
             {
                 _direction = new Point(0, Constants.CELL_SIZE);
             }
 
-            Snake snake = (Snake)cast.GetFirstActor("snake");
+            SnakeTwo snake = (SnakeTwo)cast.GetFirstActor("snaketwo");
             snake.TurnHead(_direction);
 
         }

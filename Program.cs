@@ -19,17 +19,19 @@ namespace Cycle
         {
             // create the cast
             Cast cast = new Cast();
-            cast.AddActor("food", new Food());
+            // cast.AddActor("food", new Food());
             cast.AddActor("snake", new Snake());
             cast.AddActor("score", new Score());
-
+            cast.AddActor("snaketwo", new SnakeTwo());
+            cast.AddActor("scoretwo", new ScoreTwo());
             // create the services
             KeyboardService keyboardService = new KeyboardService();
             VideoService videoService = new VideoService(false);
            
             // create the script
             Script script = new Script();
-            script.AddAction("input", new ControlActorsAction(keyboardService));
+            script.AddAction("input", new ControlSnakeActorsAction(keyboardService));
+            script.AddAction("input", new ControlSnakeTwoActorsAction(keyboardService));
             script.AddAction("update", new MoveActorsAction());
             script.AddAction("update", new HandleCollisionsAction());
             script.AddAction("output", new DrawActorsAction(videoService));

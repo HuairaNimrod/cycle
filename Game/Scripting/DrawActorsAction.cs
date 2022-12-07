@@ -26,14 +26,19 @@ namespace Cycle.Game.Scripting
         {
             Snake snake = (Snake)cast.GetFirstActor("snake");
             List<Actor> segments = snake.GetSegments();
+            SnakeTwo snaketwo = (SnakeTwo)cast.GetFirstActor("snaketwo");
+            List<Actor> segmentstwo = snaketwo.GetSegments();
+            
             Actor score = cast.GetFirstActor("score");
-            Actor food = cast.GetFirstActor("food");
+            Actor scoretwo = cast.GetFirstActor("scoretwo");
+            scoretwo.SetPosition(new Point(Constants.MAX_X -120, 0));
             List<Actor> messages = cast.GetActors("messages");
             
             _videoService.ClearBuffer();
             _videoService.DrawActors(segments);
+            _videoService.DrawActors(segmentstwo);
             _videoService.DrawActor(score);
-            _videoService.DrawActor(food);
+            _videoService.DrawActor(scoretwo);
             _videoService.DrawActors(messages);
             _videoService.FlushBuffer();
         }
