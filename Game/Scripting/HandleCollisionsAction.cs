@@ -18,6 +18,7 @@ namespace Cycle.Game.Scripting
     public class HandleCollisionsAction : Action
     {
         private bool _isGameOver = false;
+        private string _message ="Game Over";
         private int countdown = 0;
 
         /// <summary>
@@ -75,17 +76,36 @@ namespace Cycle.Game.Scripting
 
             foreach (Actor segment in body)
             {
-                if (segment.GetPosition().Equals(head.GetPosition()))
+                if (segment.GetPosition().Equals(head.GetPosition())) // own collision
                 {
                     _isGameOver = true;
+                    _message = "Player 1 lose :(";
                 }
-                
+                foreach (Actor segmenttwo in bodytwo)//snake two collision
+                {
+                    if (segment.GetPosition().Equals(headtwo.GetPosition()))
+                        {
+                            _isGameOver = true;
+                            _message = "Player 2 lose :(";
+                        }
+
+                }
             }
             foreach (Actor segmenttwo in bodytwo)
             {
                 if (segmenttwo.GetPosition().Equals(headtwo.GetPosition()))
                 {
                     _isGameOver = true;
+                    _message = "Player 2 lose :(";
+                }
+                foreach (Actor segment in body)//snake two collision
+                {
+                    if (segmenttwo.GetPosition().Equals(head.GetPosition()))
+                        {
+                            _isGameOver = true;
+                            _message = "Player 1 lose :(";
+                        }
+
                 }
                 
             }
@@ -97,19 +117,25 @@ namespace Cycle.Game.Scripting
             {
                 Snake snake = (Snake)cast.GetFirstActor("snake");
                 List<Actor> segments = snake.GetSegments();
+                SnakeTwo snaketwo = (SnakeTwo)cast.GetFirstActor("snaketwo");
+                List<Actor> segmentsTwo = snaketwo.GetSegments();
 
                 // create a "game over" message
-                int x = Constants.MAX_X / 2;
+                int x = (Constants.MAX_X / 2)-50;
                 int y = Constants.MAX_Y / 2;
                 Point position = new Point(x, y);
 
                 Actor message = new Actor();
-                message.SetText("Game Over!");
+                message.SetText(_message);
                 message.SetPosition(position);
                 cast.AddActor("messages", message);
 
                 // make everything white
                 foreach (Actor segment in segments)
+                {
+                    segment.SetColor(Constants.WHITE);
+                }
+                foreach (Actor segment in segmentsTwo)
                 {
                     segment.SetColor(Constants.WHITE);
                 }
