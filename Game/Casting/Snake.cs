@@ -109,7 +109,7 @@ namespace Cycle.Game.Casting
                 Point velocity = new Point(1 * Constants.CELL_SIZE, 0);
                 // ?: ternary conditional operator ==> is this condition true ? yes : no
                 string text = i == 0 ? "8" : "#"; 
-                Color color = i == 0 ? Constants.YELLOW : Constants.GREEN;
+                Color color = Constants.GREEN;
 
                 Actor segment = new Actor();
                 segment.SetPosition(position);
