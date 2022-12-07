@@ -69,12 +69,25 @@ namespace Cycle.Game.Scripting
             Actor head = snake.GetHead();
             List<Actor> body = snake.GetBody();
 
+            SnakeTwo snaketwo = (SnakeTwo)cast.GetFirstActor("snaketwo");
+            Actor headtwo = snaketwo.GetHead();
+            List<Actor> bodytwo = snaketwo.GetBody();
+
             foreach (Actor segment in body)
             {
                 if (segment.GetPosition().Equals(head.GetPosition()))
                 {
                     _isGameOver = true;
                 }
+                
+            }
+            foreach (Actor segmenttwo in bodytwo)
+            {
+                if (segmenttwo.GetPosition().Equals(headtwo.GetPosition()))
+                {
+                    _isGameOver = true;
+                }
+                
             }
         }
 
